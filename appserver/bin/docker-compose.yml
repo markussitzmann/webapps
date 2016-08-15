@@ -1,0 +1,68 @@
+version: '2'
+services:
+
+  proxy:
+     container_name: proxy
+     image: appserver_proxy_image
+     ports: 
+       - "80:80"
+     networks:
+       - "net"
+     volumes:
+       - "/var/run/docker.sock:/tmp/docker.sock:ro"
+
+#  appserverdb:
+#     container_name: appserverdb
+#     image: appserver_postgres_image
+#     networks:
+#       - "net"
+#     environment:
+#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#       - POSTGRES_USER=${POSTGRES_USER}
+#     volumes:
+#       - "${APPSERVER_HOME}:/home/appserver"
+
+#  cmsdb:
+#     container_name: cmsdb
+#     image: appserver_postgres_image
+#     networks:
+#       - "net"
+#     environment:
+#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#       - POSTGRES_USER=${POSTGRES_USER}
+#     volumes:
+#       - "${APPSERVER_HOME}:/home/appserver"
+#       - "/home/cmsdb/media"
+
+  shell:
+     container_name: shell
+     image: appserver_shell_image
+     networks:
+       - "net"
+     volumes:
+       - "${APPSERVER_HOME}:/home/appserver"
+
+#  postgres:
+#     container_name: postgres
+#     image: appserver_postgres_image
+#     networks:
+#       - "net"
+#     environment:
+#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#       - POSTGRES_USER=${POSTGRES_USER}
+
+#  rdkit:
+#     container_name: rdkit
+#     image: appserver_rdkit_image
+#     networks:
+#       - "net"
+#     environment:
+#       - USER_NAME=bin
+#       - PGDATA=/opt/bin/pgdata
+#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+#       - POSTGRES_USER=${POSTGRES_USER}
+
+networks:
+  net:
+
+

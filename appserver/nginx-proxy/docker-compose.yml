@@ -1,0 +1,7 @@
+nginxproxy:
+   container_name: nginxproxy
+   image: appserver_nginxproxy_image
+   ports: 
+     - "80:80"
+   volumes:
+     - "/var/run/docker.sock:/tmp/docker.sock:ro"

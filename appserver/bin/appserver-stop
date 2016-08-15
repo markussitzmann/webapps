@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source ./appserver.env
+
+
+printf "\n\n+++ APPSERVER CORE STOP +++\n\n"
+
+docker-compose stop && echo "Done."
+
+printf "\n\n!!! You need to stop the DB containers separately in directory './db' using './appserver-db-stop' !!! WARNING OF POTENTIAL DATA LOSS +++\n\n"

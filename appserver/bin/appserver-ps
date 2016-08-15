@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ./appserver.env
+
+printf "\n\n+++ APPSERVER CORE +++\n\n"
+
+docker-compose ps
+
+printf "\n\n+++  APPSERVER DB  +++\n\n"
+
+cd db/
+
+docker-compose ps
+
+printf "\n\n"

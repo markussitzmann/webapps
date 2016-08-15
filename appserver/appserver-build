@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ./appserver.env
+
+mkdir -p ${APPSERVER_HOME} && chown -R $USER ${APPSERVER_HOME}
+
+docker-compose build "$@" && \
+docker-compose run --rm appserver bash -ci "\
+    cp -r /tmp/bin /home/appserver && \
+    mv /home/appserver/bin/appserver-down  /home/appserver/bin/appserver-down-WARNING-POTENTIAL-DATA-LOSS && \
+    mv /home/appserver/bin/db/appserver-db-down  /home/appserver/bin/db/appserver-db-down-WARNING-POTENTIAL-DATA-LOSS && \
+	cd /home/ && \
+	chown -R `stat -c %g .`.`stat -c %u .` ./appserver"
+docker-compose down
+echo "Done."

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source ./appserver.env
+
+printf "\n\n+++ APPSERVER CORE START +++\n\n"
+
+docker-compose start "$@" && echo "Done."
+
+printf "\n\n+++ APPSERVER DB START +++\n\n"
+
+cd db/
+docker-compose start "$@" && echo "Done."

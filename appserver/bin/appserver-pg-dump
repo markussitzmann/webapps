@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source ./appserver.env
+
+if [ -z "$1" ]; then
+    echo "Please specify a database container name. Exit!"
+    exit 0;
+fi;
+
+DATE=`date +%Y-%m-%d:%H:%M:%S`
+
+CMD="pg_dump -h $1 -p 5432 -Ft -U $POSTGRES_USER $POSTGRES_USER > /home/appserver/pg-dump/$1-dump-$DATE.tar"
+
+echo $CMD
+
+docker-compose run --rm shell bash -ci "\
+    mkdir -p /home/appserver/pg-dump/ &&\
+ 	$CMD &&\
+ 	cd /home/appserver/pg-dump &&\
+ 	chown -R `stat -c %g .`.`stat -c %u .` ."
