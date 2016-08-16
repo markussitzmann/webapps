@@ -132,9 +132,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join("/home/service", "static/")
 
-MEDIA_ROOT = os.path.join("/home/cmsdb", "media/")
+MEDIA_ROOT = os.path.join("/home/service", "media/")
 MEDIA_URL = "/media/"
 
 # Add `finalware.context_processors.contextify` to your TEMPLATE_CONTEXT_PROCESSORS

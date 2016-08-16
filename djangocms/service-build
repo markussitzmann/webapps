@@ -17,8 +17,9 @@ docker-compose run --rm django_service bash -ci "\
 	    cp /tmp/supervisord.conf /home/service && \
 	    cp /tmp/nginx.conf /home/service && \
 	    cp /tmp/uwsgi_params /home/service && \
-	    mv /home/service/service-down /home/service/service-down-WARNING-DATA-LOSS && \
-	    mkdir -p /home/service/appservercms/static; fi && \
+	    mv /home/service/service-down /home/service/service-down-WARNING-DATA-LOSS ; fi && \
+	mkdir -p /home/service/static && \
+	mkdir -p /home/cmsdb/media && \
     chmod 777 /home/cmsdb/media && \
 	django-admin.py migrate && \
 	django-admin.py collectstatic --noinput && \
