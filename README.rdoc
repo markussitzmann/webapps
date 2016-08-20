@@ -21,9 +21,9 @@ Installation:
     
  - if this is finished run
  
-     {$APP_SERVER_HOME}/bin/appserver-up
+     {$APPSERVER_HOME}/bin/appserver-up
      
-    and go to "localhost" in your web browser which should provide you with an nginx error message at the current state
+    and go to "localhost" in your web browser which should provide you with an nginx error message at the current state of installation
     
   [WORK IN PROGESS ... to be continued, I wait for the first complain]
      
