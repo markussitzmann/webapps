@@ -1,1 +1,29 @@
-Nothing yet ... test test
+Docker-base app server system for chemoinformatics that includes a 
+
+- nginx web reverse proxy
+- python 3.5 with conda
+- RDKit 2016.3.3 (conda install with postgres and InChI support)
+- postgres 9.5
+
+All apps and databases are each encapsulated into own Docker containers linked by a Docker network and bind automatically to the reverse proxy for outside web access.
+
+Installation:
+ - install Docker (>=1.11) and docker-compose (>=1.7)
+ - clone this repository and adapt 
+ 
+     webapps/appserver/etc/appserver.env
+     
+ - run
+ 
+     webapps/appserver/appserver-build
+     
+    This will build serveral Docker images on your system including RDKit and takes about 30 minutes on a current 4 core system.
+    
+ - if this is finished run
+ 
+     {$APP_SERVER_HOME}/bin/appserver-up
+     
+    and go to "localhost" in your web browser which should provide you with an nginx error message at the current state
+    
+  [WORK IN PROGESS ... to be continued, I wait for the first complain]
+     
