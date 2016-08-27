@@ -19,6 +19,7 @@ if [ "$1" = 'postgres' ]; then
 	initdb
 
     echo "-----"
+    echo $PGDATA
     echo $POSTGRES_PASSWORD
     echo $POSTGRES_USER
     echo "-----"
