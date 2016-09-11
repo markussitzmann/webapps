@@ -18,9 +18,8 @@ services:
      image: appserver_postgres_image
      environment:
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-       - POSTGRES_USER=${POSTGRES_USER}
-     env_file: 
-       - appserver.env
+#     env_file:
+#       - appserver.env
      depends_on:
        - "debian"
 
@@ -37,7 +36,6 @@ services:
        - USER_NAME=bin
        - PGDATA=/opt/bin/pgdata
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-       - POSTGRES_USER=${POSTGRES_USER}
      depends_on:
        - "conda"
 
@@ -59,7 +57,7 @@ services:
   appserver:
      container_name: appserver
      image: appserver_image
-     build: bin/
+     build: .
      volumes:
         - "${APPSERVER_HOME}:/home/appserver"
      depends_on:

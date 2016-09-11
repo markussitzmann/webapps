@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
     exit 0;
 fi;
 
-CMD="psql -h $1 -p 5432 -U $POSTGRES_USER $POSTGRES_USER"
+CMD="psql -h $1 -p 5432 -U appserver appserver"
 
 docker-compose run --rm shell bash -ci "$CMD"
 

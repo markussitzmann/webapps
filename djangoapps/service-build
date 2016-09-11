@@ -16,8 +16,7 @@ docker-compose run --rm django_service bash -ci "\
 	    cp /tmp/run.sh /home/service && \
 	    cp /tmp/supervisord.conf /home/service && \
 	    cp /tmp/nginx.conf /home/service && \
-	    cp /tmp/uwsgi_params /home/service && \
-	    mv /home/service/service-down /home/service/service-down-WARNING-DATA-LOSS ; fi && \
+	    cp /tmp/uwsgi_params /home/service ; fi && \
 	mkdir -p /home/service/static && \
 	mkdir -p /home/service/media && \
 	chmod 777 /home/service/media; \

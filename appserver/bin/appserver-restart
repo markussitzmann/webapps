@@ -1,9 +1,0 @@
-#!/bin/bash
-
-source ./appserver.env
-
-printf "\n\n+++ APPSERVER CORE RESTART +++\n\n"
-
-docker-compose restart && echo "Done."
-
-printf "\n\n!!! You need to restart the DB containers separately in directory './db' using './appserver-db-down'. !!! WARNING OF POTENTIAL DATA LOSS +++\n\n"

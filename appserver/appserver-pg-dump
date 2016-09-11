@@ -9,7 +9,7 @@ fi;
 
 DATE=`date +%Y-%m-%d:%H:%M:%S`
 
-CMD="pg_dump -h $1 -p 5432 -Ft -U $POSTGRES_USER $POSTGRES_USER > /home/appserver/pg-dump/$1-dump-$DATE.tar"
+CMD="pg_dump -h $1 -p 5432 -Ft -U appserver appserver > /home/appserver/pg-dump/$1-dump-$DATE.tar"
 
 echo $CMD
 

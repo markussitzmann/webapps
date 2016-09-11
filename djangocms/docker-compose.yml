@@ -19,14 +19,12 @@ services:
       - VIRTUAL_HOST=${SERVICE_HOSTNAME}
       - DJANGO_HOSTNAME=${SERVICE_HOSTNAME}
       - POSTGRES_CMSDB_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_CMSDB_USER=${POSTGRES_USER}
       - POSTGRES_CMSDB_HOST=cmsdb
       - POSTGRES_APPSERVERDB_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_APPSERVERDB_USER=${POSTGRES_USER}
       - POSTGRES_APPSERVERDB_HOST=appserverdb
 
 
 networks:
   appserver_net:
     external:
-      name: bin_net
+      name: appserver_net

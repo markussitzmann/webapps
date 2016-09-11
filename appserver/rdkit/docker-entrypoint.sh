@@ -65,9 +65,10 @@ if [ "$1" = 'postgres' ]; then
 		EOSQL
 		echo
 
+		echo
+
         createdb
 
-		echo
 		for f in /docker-entrypoint-initdb.d/*; do
 			case "$f" in
 				*.sh)  echo "$0: running $f"; . "$f" ;;

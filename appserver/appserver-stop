@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source ./appserver.env
+
+
+printf "\n\n+++ APPSERVER CORE STOP +++\n\n"
+
+docker-compose stop && echo "Done."
+

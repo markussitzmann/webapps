@@ -24,7 +24,5 @@ RUN if [ -d /home/service/project_template/ ]; then cp -r /home/service/project_
 	cp /home/service/nginx.conf /tmp && \
 	cp /home/service/uwsgi_params /tmp
 
-#VOLUME ["/home/service/"]
-
 EXPOSE 80
 CMD ["/home/service/run.sh"]

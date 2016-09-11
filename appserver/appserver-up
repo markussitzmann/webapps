@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source ./appserver.env
+
+docker-compose up -d && echo "Done."
+

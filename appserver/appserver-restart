@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source ./appserver.env
+
+printf "\n\n+++ APPSERVER CORE RESTART +++\n\n"
+
+docker-compose restart && echo "Done."
+

@@ -19,25 +19,39 @@ services:
      volumes:
        - "${APPSERVER_HOME}:/home/appserver"
 
-#  postgres:
-#     container_name: postgres
-#     image: appserver_postgres_image
-#     networks:
-#       - "net"
-#     environment:
-#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#       - POSTGRES_USER=${POSTGRES_USER}
+  appserverdb:
+     container_name: appserverdb
+     image: appserver_postgres_image
+     networks:
+       - "net"
+     environment:
+       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+       - PGDATA=/home/appserver/data/appserverdb/pgdata
+     volumes:
+       - "${APPSERVER_HOME}:/home/appserver"
 
-#  rdkit:
-#     container_name: rdkit
-#     image: appserver_rdkit_image
-#     networks:
-#       - "net"
-#     environment:
-#       - USER_NAME=appserver
-#       - PGDATA=/opt/appserver/pgdata
-#       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#       - POSTGRES_USER=${POSTGRES_USER}
+  cmsdb:
+     container_name: cmsdb
+     image: appserver_postgres_image
+     networks:
+       - "net"
+     environment:
+       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+       - PGDATA=/home/appserver/data/cmsdb/pgdata
+     volumes:
+       - "${APPSERVER_HOME}:/home/appserver"
+       - "${APPSERVER_HOME}/media/cmsdb:/home/appserver/media/cmsdb"
+
+  rdkitdb:
+     container_name: rdkitdb
+     image: appserver_rdkit_image
+     networks:
+       - "net"
+     environment:
+       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+       - PGDATA=/home/appserver/data/rdkitdb/pgdata
+     volumes:
+       - "${APPSERVER_HOME}:/home/appserver"
 
 networks:
   net:

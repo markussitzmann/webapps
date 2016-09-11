@@ -2,13 +2,19 @@
 
 source ./appserver.env
 
-mkdir -p ${APPSERVER_HOME} && chown -R $USER ${APPSERVER_HOME}
+mkdir -p ${APPSERVER_HOME} && \
+mkdir -p ${APPSERVER_HOME}/data && \
+mkdir -p ${APPSERVER_HOME}/media && \
+chown -R $USER ${APPSERVER_HOME}
 
 docker-compose build "$@" && \
 docker-compose run --rm appserver bash -ci "\
-    cp -r /tmp/bin /home/appserver && \
-    mv /home/appserver/bin/appserver-down  /home/appserver/bin/appserver-down-WARNING-POTENTIAL-DATA-LOSS && \
-    mv /home/appserver/bin/db/appserver-db-down  /home/appserver/bin/db/appserver-db-down-WARNING-POTENTIAL-DATA-LOSS && \
+    cp -r /tmp/appserver /home/appserver && \
+    mv /home/appserver/appserver/* /home/appserver && \
+    rm -rf /home/appserver/appserver && \
+    rm /home/appserver/appserver-build && \
+    mv /home/appserver/bin/docker-compose.yml /home/appserver && \
+    rm -rf /home/appserver/bin && \
 	cd /home/ && \
 	chown -R `stat -c %g .`.`stat -c %u .` ./appserver"
 docker-compose down

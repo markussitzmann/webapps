@@ -1,9 +1,0 @@
-#!/bin/bash
-
-source ./appserver.env
-
-printf "\n\n+++ APPSERVER CORE DOWN +++\n\n"
-
-docker-compose down && echo "Done."
-
-printf "\n\n!!! You have to shut down the DB containers separately in directory './db' using './appserver-db-down' !!! WARNING OF POTENTIAL DATA LOSS +++\n\n"
