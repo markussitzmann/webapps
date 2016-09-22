@@ -4,4 +4,4 @@ source ./service.env
 
 echo $SERVICE_NAME
 
-docker-compose exec django_service bash -c "cat /tmp/service.log"
+docker-compose exec service bash -c "cat /tmp/service.log"

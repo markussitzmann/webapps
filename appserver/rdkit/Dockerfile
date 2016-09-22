@@ -20,6 +20,9 @@ RUN CONDA_PY=35 conda build boost --quiet --no-anaconda-upload && \
     CONDA_NPY=110 conda build rdkit --quiet --no-anaconda-upload &&\
     CONDA_PY=35 CONDA_NPY=110 conda build rdkit --quiet --no-anaconda-upload
 
+RUN CONDA_PY=35 conda create --use-local --yes --quiet --name appserver python rdkit rdkit-postgresql95 postgresql95
+
+
 COPY docker-entrypoint.sh / 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

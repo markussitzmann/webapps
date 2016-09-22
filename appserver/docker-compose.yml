@@ -18,8 +18,6 @@ services:
      image: appserver_postgres_image
      environment:
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-#     env_file:
-#       - appserver.env
      depends_on:
        - "debian"
 
@@ -33,7 +31,6 @@ services:
      build: rdkit/
      image: appserver_rdkit_image
      environment:
-       - USER_NAME=bin
        - PGDATA=/opt/bin/pgdata
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
      depends_on:

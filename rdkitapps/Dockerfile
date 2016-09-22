@@ -1,13 +1,13 @@
 FROM appserver_rdkit_image
 
-USER root
+USER appserver
 
 COPY . /home/service/
 
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN rm /etc/nginx/sites-enabled/default
-RUN ln -s /home/service/nginx.conf /etc/nginx/sites-enabled/
-RUN ln -s /home/service/supervisord.conf /etc/supervisor/conf.d/
+#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+#RUN rm /etc/nginx/sites-enabled/default
+#RUN ln -s /home/service/nginx.conf /etc/nginx/sites-enabled/
+#RUN ln -s /home/service/supervisord.conf /etc/supervisor/conf.d/
 
 RUN CONDA_PY=35 pip install -r /home/service/requirements.txt
 
@@ -25,4 +25,6 @@ RUN if [ -d /home/service/project_template/ ]; then cp -r /home/service/project_
 	cp /home/service/uwsgi_params /tmp
 
 EXPOSE 80
+
 CMD ["/home/service/run.sh"]
+

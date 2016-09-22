@@ -2,4 +2,10 @@
 
 source ./service.env
 
+docker-compose run --rm django_service bash -ci "\
+    cd /home/ && \
+	chown -R `stat -c %g .`.`stat -c %u .` ./service && \
+	cd /home/appserver/media && \
+	chown -R `stat -c %g .`.`stat -c %u .` ./cmsdb"
+
 docker-compose down "$@" && echo "Done."

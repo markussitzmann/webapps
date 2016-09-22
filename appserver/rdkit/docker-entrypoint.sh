@@ -9,10 +9,8 @@ set_listen_addresses() {
 }
 
 
-
 if [ "$1" = 'postgres' ]; then
 
-    conda create --use-local --yes --quiet --name appserver python rdkit rdkit-postgresql95 postgresql95
     source activate appserver
 
 	mkdir -p "$PGDATA"
@@ -69,14 +67,20 @@ if [ "$1" = 'postgres' ]; then
 
         createdb
 
-		for f in /docker-entrypoint-initdb.d/*; do
-			case "$f" in
-				*.sh)  echo "$0: running $f"; . "$f" ;;
-				*.sql) echo "$0: running $f"; psql --username appserver --dbname appserver < "$f" && echo ;;
-				*)     echo "$0: ignoring $f" ;;
-			esac
-			echo
-		done
+
+        psql --username postgres <<-EOSQL
+			CREATE EXTENSION rdkit ;
+		EOSQL
+
+		# we don't support this currently:
+		#for f in /docker-entrypoint-initdb.d/*; do
+		#	case "$f" in
+		#		*.sh)  echo "$0: running $f"; . "$f" ;;
+		#		*.sql) echo "$0: running $f"; psql --username appserver --dbname appserver < "$f" && echo ;;
+		#		*)     echo "$0: ignoring $f" ;;
+		#	esac
+		#	echo
+		#done
 
 		pg_ctl -D "$PGDATA" -m fast -w stop -U postgres
 		set_listen_addresses '*'
@@ -89,7 +93,6 @@ fi
 
 if [ "$1" = 'python' ]; then
 
-    conda create --use-local --yes --quiet --name appserver python rdkit
     source activate appserver
 
 fi

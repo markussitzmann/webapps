@@ -11,6 +11,7 @@ services:
      volumes:
        - "/var/run/docker.sock:/tmp/docker.sock:ro"
 
+
   shell:
      container_name: shell
      image: appserver_shell_image
@@ -18,6 +19,7 @@ services:
        - "net"
      volumes:
        - "${APPSERVER_HOME}:/home/appserver"
+
 
   appserverdb:
      container_name: appserverdb
@@ -29,6 +31,8 @@ services:
        - PGDATA=/home/appserver/data/appserverdb/pgdata
      volumes:
        - "${APPSERVER_HOME}:/home/appserver"
+     command: postgres
+
 
   cmsdb:
      container_name: cmsdb
@@ -41,6 +45,8 @@ services:
      volumes:
        - "${APPSERVER_HOME}:/home/appserver"
        - "${APPSERVER_HOME}/media/cmsdb:/home/appserver/media/cmsdb"
+     command: postgres
+
 
   rdkitdb:
      container_name: rdkitdb
@@ -52,6 +58,8 @@ services:
        - PGDATA=/home/appserver/data/rdkitdb/pgdata
      volumes:
        - "${APPSERVER_HOME}:/home/appserver"
+     command: postgres
+
 
 networks:
   net:
