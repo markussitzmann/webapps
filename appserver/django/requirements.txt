@@ -8,7 +8,7 @@ hashids
 requests
 lxml
 six
-django==1.9.9
+django
 djangorestframework
 django-extensions
 django-finalware

@@ -3,10 +3,10 @@ FROM appserver_conda_image
 USER appserver
 WORKDIR /opt/appserver/
 
-RUN git clone https://github.com/rdkit/conda-rdkit.git
+RUN git clone https://github.com/markussitzmann/conda-rdkit.git
 WORKDIR /opt/appserver/conda-rdkit
 
-#RUN git checkout development
+#RUN git checkout fix/issue-27
 
 RUN CONDA_PY=35 conda build boost --quiet --no-anaconda-upload && \
     CONDA_PY=35 conda build cairocffi --quiet --no-anaconda-upload && \
