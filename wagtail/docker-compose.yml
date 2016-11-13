@@ -1,0 +1,30 @@
+version: '2'
+services:
+
+  django_service:
+     image: appserver_${SERVICE_NAME}_image
+     build: .
+     container_name: ${SERVICE_NAME}
+     ports:
+       - "80"
+     volumes:
+      - "${SERVICE_HOME}:/home/service"
+     volumes_from:
+      - "container:${POSTGRES_HOST}:rw"
+     networks:
+      - appserver_net
+     environment:
+      - DJANGO_SETTINGS_MODULE=appservercms.settings.dev
+      - PYTHONPATH=/home/service:/home/service/appservercms
+      - VIRTUAL_HOST=${SERVICE_HOSTNAME}
+      - DJANGO_HOSTNAME=${SERVICE_HOSTNAME}
+      - POSTGRES_CMSDB_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_CMSDB_HOST=cmsdb
+      - POSTGRES_APPSERVERDB_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_APPSERVERDB_HOST=appserverdb
+
+
+networks:
+  appserver_net:
+    external:
+      name: appserver_net

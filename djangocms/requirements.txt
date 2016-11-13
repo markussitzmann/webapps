@@ -9,7 +9,6 @@ requests
 lxml
 six
 django==1.9.9
-django-finalware
 html5lib==0.9999999
 django-cms
 djangocms-cascade
@@ -32,3 +31,4 @@ djangocms-grid
 djangocms-oembed
 djangocms-table
 djangocms-blog
+django-finalware
