@@ -61,6 +61,16 @@ services:
      command: postgres
 
 
+  cmsindex:
+     container_name: cmsindex
+     image: appserver_elasticsearch_image
+     networks:
+       - "net"
+     volumes:
+       - "${APPSERVER_HOME}:/home/appserver"
+     environment:
+       - INDEXDIR=/home/appserver/data/cmsindex
+
 networks:
   net:
 

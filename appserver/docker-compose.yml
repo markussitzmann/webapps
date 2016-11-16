@@ -43,20 +43,29 @@ services:
        - "rdkit"
 
   shell:
+     build: shell/
      container_name: shell
      image: appserver_shell_image
-     build: shell/
+
      volumes:
         - "${APPSERVER_HOME}:/home/appserver"
      depends_on:
         - "debian"
 
   appserver:
+     build: .
      container_name: appserver
      image: appserver_image
-     build: .
      volumes:
         - "${APPSERVER_HOME}:/home/appserver"
      depends_on:
         - "shell"
+
+  elasticsearch:
+      build: elasticsearch/5.0
+      image: appserver_elasticsearch_image
+      volumes:
+        - "${APPSERVER_HOME}:/home/appserver"
+      ports:
+       - "9200:9200"
 

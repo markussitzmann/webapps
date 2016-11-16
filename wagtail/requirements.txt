@@ -1,0 +1,13 @@
+Pillow
+NumPy
+uwsgi
+markdown
+psycopg2
+pygments
+hashids
+requests
+lxml
+six
+wagtail
+wagtail-blog
+django-finalware
