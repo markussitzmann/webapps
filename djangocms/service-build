@@ -20,6 +20,7 @@ docker-compose run --rm django_service bash -ci "\
 	mkdir -p /home/service/static && \
 	mkdir -p /home/appserver/media/cmsdb && \
     chmod 777 /home/appserver/media/cmsdb && \
+    chown appserver.appserver /home/appserver/media/cmsdb && \
 	django-admin.py migrate && \
 	django-admin.py collectstatic --noinput && \
 	cd /home/ && \

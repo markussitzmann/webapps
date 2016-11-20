@@ -34,6 +34,19 @@ services:
      command: postgres
 
 
+  rdkitdb:
+     container_name: rdkitdb
+     image: appserver_rdkit_image
+     networks:
+       - "net"
+     environment:
+       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+       - PGDATA=/home/appserver/data/rdkitdb/pgdata
+     volumes:
+       - "${APPSERVER_HOME}:/home/appserver"
+     command: postgres
+
+
   cmsdb:
      container_name: cmsdb
      image: appserver_postgres_image
@@ -48,19 +61,6 @@ services:
      command: postgres
 
 
-  rdkitdb:
-     container_name: rdkitdb
-     image: appserver_rdkit_image
-     networks:
-       - "net"
-     environment:
-       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-       - PGDATA=/home/appserver/data/rdkitdb/pgdata
-     volumes:
-       - "${APPSERVER_HOME}:/home/appserver"
-     command: postgres
-
-
   cmsindex:
      container_name: cmsindex
      image: appserver_elasticsearch_image
@@ -69,6 +69,7 @@ services:
      volumes:
        - "${APPSERVER_HOME}:/home/appserver"
      environment:
+       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
        - INDEXDIR=/home/appserver/data/cmsindex
 
 networks:
