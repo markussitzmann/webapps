@@ -112,6 +112,7 @@ server {
 	server_name {{ $host }};
 	listen 80 {{ $default_server }};
 	access_log /var/log/nginx/access.log vhost;
+	client_max_body_size 75M;
 	return 301 https://$host$request_uri;
 }
 
@@ -160,6 +161,7 @@ server {
 server {
 	server_name {{ $host }};
 	listen 80 {{ $default_server }};
+	client_max_body_size 75M;
 	access_log /var/log/nginx/access.log vhost;
 
 	{{ if (exists (printf "/etc/nginx/vhost.d/%s" $host)) }}
