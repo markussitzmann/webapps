@@ -1,9 +1,5 @@
 FROM openjdk:8-jre
 
-# explicitly set user/group IDs
-RUN groupadd appserver --gid=1000 && \
-    useradd -g appserver -G root --uid=1000 appserver
-
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
 RUN set -x \
@@ -25,12 +21,17 @@ RUN set -x \
 	&& apt-get update && apt-get install -y --no-install-recommends apt-transport-https && rm -rf /var/lib/apt/lists/* \
 	&& echo 'deb http://packages.elasticsearch.org/elasticsearch/2.x/debian stable main' > /etc/apt/sources.list.d/elasticsearch.list
 
-ENV ELASTICSEARCH_VERSION 2.4.1
-
+ENV ELASTICSEARCH_VERSION 2.4.3
+ENV ELASTICSEARCH_DEB_VERSION 2.4.3
 
 RUN set -x \
+	\
+# don't allow the package to install its sysctl file (causes the install to fail)
+# Failed to write '262144' to '/proc/sys/vm/max_map_count': Read-only file system
+	&& dpkg-divert --rename /usr/lib/sysctl.d/elasticsearch.conf \
+	\
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends elasticsearch=$ELASTICSEARCH_VERSION \
+	&& apt-get install -y --no-install-recommends "elasticsearch=$ELASTICSEARCH_DEB_VERSION" \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
@@ -45,19 +46,14 @@ RUN set -ex \
 		./config/scripts \
 	; do \
 		mkdir -p "$path"; \
-		chown -R appserver:appserver "$path"; \
+		chown -R elasticsearch:elasticsearch "$path"; \
 	done
 
 COPY config ./config
 
 VOLUME /usr/share/elasticsearch/data
 
-RUN chown -R appserver:appserver /usr/share/elasticsearch
-RUN chmod -R 777 /usr/share/elasticsearch
-
 COPY docker-entrypoint.sh /
-
-USER appserver
 
 EXPOSE 9200 9300
 ENTRYPOINT ["/docker-entrypoint.sh"]

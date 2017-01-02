@@ -62,7 +62,7 @@ services:
         - "shell"
 
   elasticsearch:
-      build: elasticsearch/5.0
+      build: elasticsearch/5
       image: appserver_elasticsearch_image
       volumes:
         - "${APPSERVER_HOME}:/home/appserver"
