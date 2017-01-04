@@ -1,5 +1,9 @@
 FROM openjdk:8-jre
 
+# explicitly set user/group IDs
+RUN groupadd appserver --gid=1000 && \
+    useradd -g appserver -G root --uid=1000 appserver
+
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
 RUN set -x \
@@ -47,12 +51,15 @@ RUN set -ex \
 		./config/scripts \
 	; do \
 		mkdir -p "$path"; \
-		chown -R elasticsearch:elasticsearch "$path"; \
+		chown -R appserver:appserver "$path"; \
 	done
 
 COPY config ./config
 
 VOLUME /usr/share/elasticsearch/data
+
+RUN chown -R appserver:appserver /usr/share/elasticsearch
+RUN chmod -R 777 /usr/share/elasticsearch
 
 COPY docker-entrypoint.sh /
 
