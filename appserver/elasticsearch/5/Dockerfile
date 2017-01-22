@@ -25,8 +25,8 @@ RUN set -x \
 	&& apt-get update && apt-get install -y --no-install-recommends apt-transport-https && rm -rf /var/lib/apt/lists/* \
 	&& echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/elasticsearch.list
 
-ENV ELASTICSEARCH_VERSION 5.1.1
-ENV ELASTICSEARCH_DEB_VERSION 5.1.1
+ENV ELASTICSEARCH_VERSION 5.1.2
+ENV ELASTICSEARCH_DEB_VERSION 5.1.2
 
 RUN set -x \
 	\
@@ -62,6 +62,8 @@ RUN chown -R appserver:appserver /usr/share/elasticsearch
 RUN chmod -R 777 /usr/share/elasticsearch
 
 COPY docker-entrypoint.sh /
+
+USER appserver
 
 EXPOSE 9200 9300
 ENTRYPOINT ["/docker-entrypoint.sh"]

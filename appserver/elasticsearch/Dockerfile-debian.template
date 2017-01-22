@@ -63,6 +63,8 @@ RUN chmod -R 777 /usr/share/elasticsearch
 
 COPY docker-entrypoint.sh /
 
+USER appserver
+
 EXPOSE 9200 9300
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["elasticsearch"]

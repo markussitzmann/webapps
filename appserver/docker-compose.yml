@@ -46,7 +46,6 @@ services:
      build: shell/
      container_name: shell
      image: appserver_shell_image
-
      volumes:
         - "${APPSERVER_HOME}:/home/appserver"
      depends_on:
