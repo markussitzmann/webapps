@@ -7,14 +7,14 @@ WORKDIR /opt/appserver/
 RUN git clone https://github.com/rdkit/conda-rdkit.git
 WORKDIR /opt/appserver/conda-rdkit
 
-#RUN git checkout fix/issue-27
+#RUN git checkout origin/development
 
 RUN CONDA_PY=35 conda build boost --quiet --no-anaconda-upload && \
     CONDA_PY=35 conda build cairocffi --quiet --no-anaconda-upload && \
     CONDA_PY=35 conda build rdkit --quiet --no-anaconda-upload && \
     CONDA_PY=35 conda build ncurses --quiet --no-anaconda-upload && \
-    CONDA_PY=35 conda build postgresql --quiet --no-anaconda-upload && \
-    CONDA_PY=35 conda build rdkit-postgresql --quiet --no-anaconda-upload && \
+    #CONDA_PY=35 conda build postgresql --quiet --no-anaconda-upload && \
+    #CONDA_PY=35 conda build rdkit-postgresql --quiet --no-anaconda-upload && \
     CONDA_PY=35 conda build postgresql95 --quiet --no-anaconda-upload && \
     CONDA_PY=35 conda build rdkit-postgresql95 --quiet --no-anaconda-upload && \
 
