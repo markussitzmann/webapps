@@ -1,8 +1,10 @@
 FROM openjdk:8-jre
+ARG appserver_gid
+ARG appserver_uid
 
 # explicitly set user/group IDs
-RUN groupadd appserver --gid=1000 && \
-    useradd -g appserver -G root --uid=1000 appserver
+RUN groupadd appserver --gid=${appserver_gid:1000} && \
+    useradd -g appserver -G root --uid=${appserver_uid:1000} appserver
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7

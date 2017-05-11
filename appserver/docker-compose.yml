@@ -1,8 +1,12 @@
-version: '2'
+version: '3'
 services:
 
   debian:
-     build: debian/
+     build:
+       context: debian/
+       args:
+         appserver_gid: ${APPSERVER_GID}
+         appserver_uid: ${APPSERVER_UID}
      image: appserver_debian_image
 
   proxy:
@@ -14,7 +18,11 @@ services:
        - "/var/run/docker.sock:/tmp/docker.sock:ro"
 
   postgres:
-     build: postgres/9.5
+     build:
+       context: postgres/9.5
+       args:
+         appserver_gid: ${APPSERVER_GID}
+         appserver_uid: ${APPSERVER_UID}
      image: appserver_postgres_image
      environment:
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -28,7 +36,8 @@ services:
        - "debian"
 
   rdkit:
-     build: rdkit/
+     build:
+       context: rdkit/install
      image: appserver_rdkit_image
      environment:
        - PGDATA=/opt/bin/pgdata
@@ -61,10 +70,15 @@ services:
         - "shell"
 
   elasticsearch:
-      build: elasticsearch/5
+      build:
+         context: elasticsearch/5
+         args:
+           appserver_gid: ${APPSERVER_GID}
+           appserver_uid: ${APPSERVER_UID}
       image: appserver_elasticsearch_image
       volumes:
         - "${APPSERVER_HOME}:/home/appserver"
       ports:
        - "9200:9200"
+
 

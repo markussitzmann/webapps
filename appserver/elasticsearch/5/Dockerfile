@@ -1,8 +1,10 @@
 FROM openjdk:8-jre
+ARG appserver_gid
+ARG appserver_uid
 
 # explicitly set user/group IDs
-RUN groupadd appserver --gid=1000 && \
-    useradd -g appserver -G root --uid=1000 appserver
+RUN groupadd appserver --gid=${appserver_gid} && \
+    useradd -g appserver -G root --uid=${appserver_uid} appserver
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
@@ -25,8 +27,8 @@ RUN set -x \
 	&& apt-get update && apt-get install -y --no-install-recommends apt-transport-https && rm -rf /var/lib/apt/lists/* \
 	&& echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/elasticsearch.list
 
-ENV ELASTICSEARCH_VERSION 5.1.2
-ENV ELASTICSEARCH_DEB_VERSION 5.1.2
+ENV ELASTICSEARCH_VERSION 5.4.0
+ENV ELASTICSEARCH_DEB_VERSION 5.4.0
 
 RUN set -x \
 	\

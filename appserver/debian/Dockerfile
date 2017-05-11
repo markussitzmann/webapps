@@ -1,4 +1,6 @@
 FROM debian:jessie
+ARG appserver_gid
+ARG appserver_uid
 
 RUN (echo "deb http://httpredir.debian.org/debian/ jessie main contrib non-free" > /etc/apt/sources.list && \ 
     echo "deb http://httpredir.debian.org/debian/ jessie-updates main contrib non-free" >> /etc/apt/sources.list && \
@@ -52,7 +54,7 @@ RUN apt-get update -y
 
 # explicitly set user/group IDs
 RUN groupadd postgres --gid=999 && \
-    groupadd appserver --gid=1000 && \
+    groupadd appserver --gid=${appserver_gid} && \
     useradd -g postgres --uid=999 postgres && \
-    useradd -g appserver --uid=1000 appserver && \
+    useradd -g appserver --uid=${appserver_uid} appserver && \
     usermod -G postgres appserver
