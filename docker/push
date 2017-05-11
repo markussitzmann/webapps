@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker push markussitzmann/appserver_shell:1
+docker push markussitzmann/appserver_postgres:1
+docker push markussitzmann/appserver_proxy:1
+docker push markussitzmann/appserver_django:1
+docker push markussitzmann/appserver_rdkit:1
+docker push markussitzmann/appserver_elasticsearch:1

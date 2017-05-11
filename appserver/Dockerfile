@@ -1,4 +1,4 @@
-FROM appserver_shell_image
+FROM markussitzmann/appserver_shell:1
 
 COPY . /home/appserver/
 

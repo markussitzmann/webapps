@@ -1,4 +1,4 @@
-FROM appserver_rdkit_image
+FROM markussitzmann/appserver_rdkit:1
 
 #USER root
 #WORKDIR /

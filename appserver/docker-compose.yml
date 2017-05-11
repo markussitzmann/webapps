@@ -7,15 +7,17 @@ services:
        args:
          appserver_gid: ${APPSERVER_GID}
          appserver_uid: ${APPSERVER_UID}
-     image: appserver_debian_image
+     image: markussitzmann/appserver_debian:1
+
 
   proxy:
      build: nginx-proxy/
-     image: appserver_proxy_image
+     image: markussitzmann/appserver_proxy:1
      ports: 
        - "80:80"
      volumes:
        - "/var/run/docker.sock:/tmp/docker.sock:ro"
+
 
   postgres:
      build:
@@ -23,51 +25,47 @@ services:
        args:
          appserver_gid: ${APPSERVER_GID}
          appserver_uid: ${APPSERVER_UID}
-     image: appserver_postgres_image
+     image: markussitzmann/appserver_postgres:1
      environment:
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
      depends_on:
        - "debian"
 
+
   conda:
      build: conda/
-     image: appserver_conda_image
+     image: markussitzmann/appserver_conda:1
      depends_on:
        - "debian"
+
 
   rdkit:
      build:
        context: rdkit/install
-     image: appserver_rdkit_image
+     image: markussitzmann/appserver_rdkit:1
      environment:
        - PGDATA=/opt/bin/pgdata
        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
      depends_on:
        - "conda"
 
+
   django:
      build: django/
-     image: appserver_django_image
+     image: markussitzmann/appserver_django:1
      depends_on:
        - "rdkit"
+
 
   shell:
      build: shell/
      container_name: shell
-     image: appserver_shell_image
+     image: markussitzmann/appserver_shell:1
      volumes:
         - "${APPSERVER_HOME}:/home/appserver"
      depends_on:
-        - "debian"
+        - "postgres"
 
-  appserver:
-     build: .
-     container_name: appserver
-     image: appserver_image
-     volumes:
-        - "${APPSERVER_HOME}:/home/appserver"
-     depends_on:
-        - "shell"
 
   elasticsearch:
       build:
@@ -75,10 +73,18 @@ services:
          args:
            appserver_gid: ${APPSERVER_GID}
            appserver_uid: ${APPSERVER_UID}
-      image: appserver_elasticsearch_image
+      image: markussitzmann/appserver_elasticsearch:1
       volumes:
         - "${APPSERVER_HOME}:/home/appserver"
       ports:
        - "9200:9200"
 
 
+  appserver:
+     build: .
+     container_name: appserver
+     image: markussitzmann/appserver:1
+     volumes:
+        - "${APPSERVER_HOME}:/home/appserver"
+     depends_on:
+        - "shell"

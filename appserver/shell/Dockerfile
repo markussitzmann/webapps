@@ -1,4 +1,4 @@
-FROM appserver_postgres_image
+FROM markussitzmann/appserver_postgres:1
 
 COPY docker-entrypoint.sh /
 

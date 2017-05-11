@@ -3,7 +3,7 @@ services:
 
   proxy:
      container_name: proxy
-     image: appserver_proxy_image
+     image: markussitzmann/appserver_proxy:1
      ports: 
        - "80:80"
      networks:
@@ -14,7 +14,7 @@ services:
 
   shell:
      container_name: shell
-     image: appserver_shell_image
+     image: markussitzmann/appserver_shell:1
      networks:
        - "net"
      volumes:
@@ -23,7 +23,7 @@ services:
 
   appserverdb:
      container_name: appserverdb
-     image: appserver_postgres_image
+     image: markussitzmann/appserver_postgres:1
      networks:
        - "net"
      environment:
@@ -36,7 +36,7 @@ services:
 
   rdkitdb:
      container_name: rdkitdb
-     image: appserver_rdkit_image
+     image: markussitzmann/appserver_rdkit:1
      networks:
        - "net"
      environment:
@@ -49,7 +49,7 @@ services:
 
   cmsdb:
      container_name: cmsdb
-     image: appserver_postgres_image
+     image: markussitzmann/appserver_postgres:1
      networks:
        - "net"
      environment:
@@ -63,7 +63,7 @@ services:
 
   cmsindex:
      container_name: cmsindex
-     image: appserver_elasticsearch_image
+     image: markussitzmann/appserver_elasticsearch:1
      networks:
        - "net"
      volumes:

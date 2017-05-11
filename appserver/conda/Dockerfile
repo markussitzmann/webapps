@@ -1,4 +1,4 @@
-FROM appserver_debian_image
+FROM markussitzmann/appserver_debian:1
 
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \

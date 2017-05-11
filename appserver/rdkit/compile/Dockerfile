@@ -1,4 +1,4 @@
-FROM appserver_conda_image
+FROM markussitzmann/appserver_conda:1
 
 USER appserver
 WORKDIR /opt/appserver/
